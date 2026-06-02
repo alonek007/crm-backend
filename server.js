@@ -7,6 +7,7 @@ const app = express();
 port = process.env.PORT
 const z = require('zod')
 const jwt = require("jsonwebtoken")
+const auth = require('./middleware/auth.js')
 
 
 
@@ -96,8 +97,6 @@ console.log(hashedPassword);
 
 
 
-ramp1301
-
 
 
 
@@ -145,6 +144,13 @@ const payload = {
 
 })
 
+
+
+app.get("/me", auth, function(req, res) {
+    res.json({
+        user: req.user
+    });
+});
 
 app.listen(port, function() { 
     console.log(`connected ${port}`)
